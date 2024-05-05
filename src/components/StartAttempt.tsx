@@ -20,6 +20,7 @@ export function StartAttempt(): JSX.Element {
 
     return (
         <>
+            <div>{/* Number of attempts: attemptNum */}</div>
             <Button onClick={startQuiz} disabled={quizRun || attmptNum === 0}>
                 Start Quiz
             </Button>
