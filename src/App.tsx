@@ -7,168 +7,153 @@ import { StartAttempt } from "./components/StartAttempt";
 import { TwoDice, d6 } from "./components/TwoDice";
 import { CycleHoliday } from "./components/CycleHoliday";
 import { Counter } from "./components/Counter";
-import { DoubleHalf } from "./bad-components/DoubleHalf";
-import { ColoredBox } from "./bad-components/ColoredBox";
-import { ShoveBox } from "./bad-components/ShoveBox";
-import { ChooseTeam } from "./bad-components/ChooseTeam";
+import { QuestionType } from "./interfaces/question";
 
-function App(): JSX.Element {
-    return (
-        <div className="App">
-            <header className="App-header">
-                UD CISC275 with React Hooks and TypeScript
-            </header>
-            <hr></hr>
-            {/* <DoubleHalf></DoubleHalf> */}
-            <hr></hr>
-            <ChooseTeam></ChooseTeam>
-            <hr></hr>
-            <ColoredBox></ColoredBox>
-            <hr></hr>
-            <ShoveBox></ShoveBox>
-            <hr></hr>
-            <Counter></Counter>
-            <hr />
-            <RevealAnswer></RevealAnswer>
-            <hr />
-            <StartAttempt></StartAttempt>
-            <hr />
-            <TwoDice></TwoDice>
-            <hr />
-            <ChangeType></ChangeType>
-            <hr />
-            <CycleHoliday></CycleHoliday>
-        </div>
+export function App(): JSX.Element {
+    const [counter, setCounter] = useState<number>(0);
+
+    function addOne(): void {
+        setCounter(counter + 1);
+    }
+
+    const [visible, setVisible] = useState<boolean>(false);
+
+    function RevealAnswer(): void {
+        setVisible(!visible);
+    }
+
+    const [questType, setQuestType] = useState<QuestionType>(
+        "short_answer_question"
     );
-    // function ChangeType(): void {
-    //     setQuestType(
-    //         questType === "multiple_choice_question"
-    //             ? "short_answer_question"
-    //             : "multiple_choice_question"
-    //     );
-    // }
+    function ChangeType(): void {
+        setQuestType(
+            questType === "multiple_choice_question"
+                ? "short_answer_question"
+                : "multiple_choice_question"
+        );
+    }
 
-    // const [attmptNum, incAttmpt] = useState<number>(4);
-    // const [quizRun, isRunning] = useState<boolean>(false);
+    const [attmptNum, incAttmpt] = useState<number>(4);
+    const [quizRun, isRunning] = useState<boolean>(false);
 
-    // function startQuiz(): void {
-    //     if (attmptNum > 0) {
-    //         incAttmpt(attmptNum - 1);
-    //         isRunning(true);
-    //     }
-    // }
-    // function stopQuiz(): void {
-    //     isRunning(false);
-    // }
-    // function mulligan(): void {
-    //     incAttmpt(attmptNum + 1);
-    // }
+    function startQuiz(): void {
+        if (attmptNum > 0) {
+            incAttmpt(attmptNum - 1);
+            isRunning(true);
+        }
+    }
+    function stopQuiz(): void {
+        isRunning(false);
+    }
+    function mulligan(): void {
+        incAttmpt(attmptNum + 1);
+    }
 
-    // const [dieOne, rollDieOne] = useState<number>(3);
-    // const [dieTwo, rollDieTwo] = useState<number>(5);
+    const [dieOne, rollDieOne] = useState<number>(3);
+    const [dieTwo, rollDieTwo] = useState<number>(5);
 
-    // function rollFirst(): void {
-    //     rollDieOne(d6);
-    // }
-    // function rollSecond(): void {
-    //     rollDieTwo(d6);
-    // }
+    function rollFirst(): void {
+        rollDieOne(d6);
+    }
+    function rollSecond(): void {
+        rollDieTwo(d6);
+    }
 
-    // const [currentHoliday, setNextHoliday] =
-    //     useState<Holidays>("New Year's Day");
-    // type Holidays =
-    //     | "New Year's Day"
-    //     | "Valentine's Day"
-    //     | "Labor Day"
-    //     | "Christmas"
-    //     | "Thanksgiving";
+    const [currentHoliday, setNextHoliday] =
+        useState<Holidays>("New Year's Day");
+    type Holidays =
+        | "New Year's Day"
+        | "Valentine's Day"
+        | "Labor Day"
+        | "Christmas"
+        | "Thanksgiving";
 
-    // const changeAlpha: Record<Holidays, Holidays> = {
-    //     "New Year's Day": "Thanksgiving",
-    //     "Valentine's Day": "Christmas",
-    //     "Labor Day": "New Year's Day",
-    //     Christmas: "Labor Day",
-    //     Thanksgiving: "Valentine's Day"
-    // };
+    const changeAlpha: Record<Holidays, Holidays> = {
+        "New Year's Day": "Thanksgiving",
+        "Valentine's Day": "Christmas",
+        "Labor Day": "New Year's Day",
+        Christmas: "Labor Day",
+        Thanksgiving: "Valentine's Day"
+    };
 
-    // const changeChrono: Record<Holidays, Holidays> = {
-    //     "New Year's Day": "Valentine's Day",
-    //     "Valentine's Day": "Labor Day",
-    //     "Labor Day": "Thanksgiving",
-    //     Thanksgiving: "Christmas",
-    //     Christmas: "New Year's Day"
-    // };
+    const changeChrono: Record<Holidays, Holidays> = {
+        "New Year's Day": "Valentine's Day",
+        "Valentine's Day": "Labor Day",
+        "Labor Day": "Thanksgiving",
+        Thanksgiving: "Christmas",
+        Christmas: "New Year's Day"
+    };
 
-    // function nextAlpha(): void {
-    //     const newHoliday = changeAlpha[currentHoliday];
-    //     setNextHoliday(newHoliday);
-    // }
+    function nextAlpha(): void {
+        const newHoliday = changeAlpha[currentHoliday];
+        setNextHoliday(newHoliday);
+    }
 
-    // function nextChrono(): void {
-    //     const newHoliday = changeChrono[currentHoliday];
-    //     setNextHoliday(newHoliday);
-    // }
+    function nextChrono(): void {
+        const newHoliday = changeChrono[currentHoliday];
+        setNextHoliday(newHoliday);
+    }
 
-    // return (
-    //     <>
-    //         <Button onClick={addOne}>{counter}</Button>
-    //         <div>
-    //             <Button onClick={RevealAnswer}>Reveal Answer</Button>
-    //             {visible && <div>42</div>}
-    //         </div>
-    //         <Button onClick={ChangeType}>Change Type</Button>
-    //         <div>
-    //             {questType === "short_answer_question" ? (
-    //                 <span>Short Answer</span>
-    //             ) : (
-    //                 <span>Multiple Choice</span>
-    //             )}
-    //         </div>
-    //         <Button onClick={startQuiz} disabled={quizRun || attmptNum === 0}>
-    //             Start Quiz
-    //         </Button>
+    return (
+        <>
+            <Button onClick={addOne}>{counter}</Button>
+            <div>
+                <Button onClick={RevealAnswer}>Reveal Answer</Button>
+                {visible && <div>42</div>}
+            </div>
+            <Button onClick={ChangeType}>Change Type</Button>
+            <div>
+                {questType === "short_answer_question" ? (
+                    <span>Short Answer</span>
+                ) : (
+                    <span>Multiple Choice</span>
+                )}
+            </div>
+            <Button onClick={startQuiz} disabled={quizRun || attmptNum === 0}>
+                Start Quiz
+            </Button>
 
-    //         <div></div>
-    //         <Button onClick={stopQuiz} disabled={!quizRun}>
-    //             Stop Quiz
-    //         </Button>
-    //         <div>
-    //             <Button onClick={mulligan} disabled={quizRun}>
-    //                 Mulligan
-    //             </Button>
-    //         </div>
-    //         <div>
-    //             <Button onClick={rollFirst}>Roll Left</Button>
-    //             <span data-testid="left-die">{dieOne}</span>
-    //             <div></div>
-    //             <Button onClick={rollSecond}>Roll Right</Button>
-    //             <span data-testid="right-die">{dieTwo}</span>
-    //             <div></div>
-    //             {dieOne === dieTwo ? (
-    //                 <span>You Lose...</span>
-    //             ) : (
-    //                 <span>You Win!</span>
-    //             )}
-    //         </div>
-    //         <div>
-    //             <Button onClick={nextAlpha}>Advance by Alphabet</Button>
-    //             <Button onClick={nextChrono}>Advance by Year</Button>
-    //         </div>
-    //         <div></div>
-    //         <span>
-    //             Holiday:{" "}
-    //             {currentHoliday === "New Year's Day"
-    //                 ? "🎆"
-    //                 : currentHoliday === "Valentine's Day"
-    //                 ? "💝"
-    //                 : currentHoliday === "Labor Day"
-    //                 ? "🪑"
-    //                 : currentHoliday === "Thanksgiving"
-    //                 ? "🦃"
-    //                 : "🎁"}
-    //         </span>
-    //     </>
-    //);
+            <div></div>
+            <Button onClick={stopQuiz} disabled={!quizRun}>
+                Stop Quiz
+            </Button>
+            <div>
+                <Button onClick={mulligan} disabled={quizRun}>
+                    Mulligan
+                </Button>
+            </div>
+            <div>
+                <Button onClick={rollFirst}>Roll Left</Button>
+                <span data-testid="left-die">{dieOne}</span>
+                <div></div>
+                <Button onClick={rollSecond}>Roll Right</Button>
+                <span data-testid="right-die">{dieTwo}</span>
+                <div></div>
+                {dieOne === dieTwo ? (
+                    <span>You Lose...</span>
+                ) : (
+                    <span>You Win!</span>
+                )}
+            </div>
+            <div>
+                <Button onClick={nextAlpha}>Advance by Alphabet</Button>
+                <Button onClick={nextChrono}>Advance by Year</Button>
+            </div>
+            <div></div>
+            <span>
+                Holiday:{" "}
+                {currentHoliday === "New Year's Day"
+                    ? "🎆"
+                    : currentHoliday === "Valentine's Day"
+                    ? "💝"
+                    : currentHoliday === "Labor Day"
+                    ? "🪑"
+                    : currentHoliday === "Thanksgiving"
+                    ? "🦃"
+                    : "🎁"}
+            </span>
+        </>
+    );
 
     //     <>
     //         <>
