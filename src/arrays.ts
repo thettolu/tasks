@@ -8,7 +8,7 @@ export function bookEndList(numbers: number[]): number[] {
     if (numbers.length === 0) {
         return [];
     }
-    let newNums = [];
+    const newNums = [];
     newNums.push(numbers[0]);
     newNums.push(numbers[numbers.length - 1]);
     return newNums;
