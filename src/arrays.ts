@@ -108,14 +108,17 @@ export function makeMath(addends: number[]): string {
     if (addends.length === 0) {
         return "0=0";
     }
+    let retStr = "";
     const sum = addends.reduce(
         (currentTotal: number, num: number) => currentTotal + num,
         0
     );
-    const additions = addends.join("+");
-    const retStr = sum + "=" + additions;
-
-    return retStr;
+    retStr = retStr + sum + "=";
+    for (let i = 0; i < addends.length; i++) {
+        retStr = retStr + addends[i] + "+";
+    }
+    const retStr2 = retStr.slice(0, -1);
+    return retStr2;
 }
 
 /**
@@ -128,14 +131,38 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    const firstNeg = values.findIndex((values: number): boolean => values < 0);
-    const insertVal = firstNeg < 0 ? values.length : firstNeg;
-    const sumArr = values.slice(0, insertVal);
-    const sum = sumArr.reduce(
-        (currentTotal: number, num: number) => currentTotal + num,
-        0
-    );
-    const dupArr = [...values];
-    dupArr.splice(insertVal + 1, 0, sum);
-    return dupArr;
+    let sum = 0;
+    let foundNeg = false;
+    let lastSum = false;
+
+    const result = values.reduce((acc: number[], curr: number) => {
+        if (curr < 0 && !foundNeg) {
+            foundNeg = true;
+            acc.push(curr);
+            acc.push(sum);
+            sum = 0;
+
+            lastSum = true;
+        } else {
+            if (lastSum) {
+                lastSum = false;
+            } else {
+                acc.push(curr);
+            }
+        }
+
+        sum += curr;
+
+        return acc;
+    }, []);
+
+    if (!foundNeg) {
+        result.push(sum);
+    }
+
+    if (result.every((num) => num === 0)) {
+        return [0];
+    }
+
+    return result;
 }
