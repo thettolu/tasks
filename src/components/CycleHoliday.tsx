@@ -45,17 +45,15 @@ export function CycleHoliday(): JSX.Element {
             </>
             <span>
                 Holiday:{" "}
-                {
-                currentHoliday === "New Year's Day"
+                {currentHoliday === "New Year's Day"
                     ? "🎆"
                     : currentHoliday === "Valentine's Day"
-                        ? "💝"
-                        : currentHoliday === "Labor Day"
-                            ? "🪑"
-                            : currentHoliday === "Thanksgiving"
-                                ? "🦃"
-                                : "🎁"
-                                }
+                    ? "💝"
+                    : currentHoliday === "Labor Day"
+                    ? "🪑"
+                    : currentHoliday === "Thanksgiving"
+                    ? "🦃"
+                    : "🎁"}
             </span>
         </>
     );
