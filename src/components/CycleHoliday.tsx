@@ -37,26 +37,39 @@ export function CycleHoliday(): JSX.Element {
         setNextHoliday(newHoliday);
     }
 
+    function rotateHoliday(): string {
+        // inputHoliday === "New Year's Day"
+        //                     ? "🎆"
+        //                     : outputHoliday = "Valentine's Day"
+        //                     ? "💝"
+        //                     : outputHoliday = "Labor Day"
+        //                     ? "🪑"
+        //                     : outputHoliday = "Thanksgiving"
+        //                     ? "🦃"
+        //                     : "🎁"
+
+        let outputHoliday = "";
+        if (currentHoliday === "New Year's Day") {
+            const outputHoliday = "🎆";
+        } else if (currentHoliday === "Valentine's Day") {
+            const outputHoliday = "💝";
+        } else if (currentHoliday === "Labor Day") {
+            const outputHoliday = "🪑";
+        } else if (currentHoliday === "Thanksgiving") {
+            const outputHoliday = "🦃";
+        } else {
+            const outputHoliday = "🎁";
+        }
+        return outputHoliday;
+    }
+
     return (
-        <>
-            <>
+        <div>
+            <div>
                 <Button onClick={nextAlpha}>Advance by Alphabet</Button>
                 <Button onClick={nextChrono}>Advance by Year</Button>
-            </>
-            <span>
-                Holiday:{" "}
-                {
-                currentHoliday === "New Year's Day"
-                    ? "🎆"
-                    : currentHoliday === "Valentine's Day"
-                        ? "💝"
-                        : currentHoliday === "Labor Day"
-                            ? "🪑"
-                            : currentHoliday === "Thanksgiving"
-                                ? "🦃"
-                                : "🎁"
-                                }
-            </span>
-        </>
+            </div>
+            <span>Holiday: {rotateHoliday()}</span>
+        </div>
     );
 }
