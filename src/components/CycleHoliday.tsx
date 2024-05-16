@@ -62,5 +62,6 @@ export function CycleHoliday(): JSX.Element {
             </div>
             <span>Holiday: {currentEmoji}</span>
         </div>
+
     );
 }
