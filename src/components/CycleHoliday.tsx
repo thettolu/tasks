@@ -4,12 +4,15 @@ import { Button } from "react-bootstrap";
 export function CycleHoliday(): JSX.Element {
     const [currentHoliday, setNextHoliday] =
         useState<Holidays>("New Year's Day");
+    const [currentEmoji, setNextEmoji] = useState<HolidayEmoji>("🎆");
     type Holidays =
         | "New Year's Day"
         | "Valentine's Day"
         | "Labor Day"
         | "Christmas"
         | "Thanksgiving";
+
+    type HolidayEmoji = "🎆" | "💝" | "🪑" | "🦃" | "🎁";
 
     const changeAlpha: Record<Holidays, Holidays> = {
         "New Year's Day": "Thanksgiving",
@@ -27,40 +30,28 @@ export function CycleHoliday(): JSX.Element {
         Christmas: "New Year's Day"
     };
 
+    const wordToEmoji: Record<Holidays, HolidayEmoji> = {
+        Christmas: "🎁",
+        "Labor Day": "🪑",
+        "New Year's Day": "🎆",
+        Thanksgiving: "🦃",
+        "Valentine's Day": "💝"
+    };
+
     function nextAlpha(): void {
         const newHoliday = changeAlpha[currentHoliday];
         setNextHoliday(newHoliday);
+        rotateHoliday();
     }
 
     function nextChrono(): void {
         const newHoliday = changeChrono[currentHoliday];
         setNextHoliday(newHoliday);
+        rotateHoliday();
     }
 
-    function rotateHoliday(): string {
-        // inputHoliday === "New Year's Day"
-        //                     ? "🎆"
-        //                     : outputHoliday = "Valentine's Day"
-        //                     ? "💝"
-        //                     : outputHoliday = "Labor Day"
-        //                     ? "🪑"
-        //                     : outputHoliday = "Thanksgiving"
-        //                     ? "🦃"
-        //                     : "🎁"
-
-        let outputHoliday = "";
-        if (currentHoliday === "New Year's Day") {
-            const outputHoliday = "🎆";
-        } else if (currentHoliday === "Valentine's Day") {
-            const outputHoliday = "💝";
-        } else if (currentHoliday === "Labor Day") {
-            const outputHoliday = "🪑";
-        } else if (currentHoliday === "Thanksgiving") {
-            const outputHoliday = "🦃";
-        } else {
-            const outputHoliday = "🎁";
-        }
-        return outputHoliday;
+    function rotateHoliday(): void {
+        setNextEmoji(wordToEmoji[currentHoliday]);
     }
 
     return (
@@ -69,7 +60,7 @@ export function CycleHoliday(): JSX.Element {
                 <Button onClick={nextAlpha}>Advance by Alphabet</Button>
                 <Button onClick={nextChrono}>Advance by Year</Button>
             </div>
-            <span>Holiday: {rotateHoliday()}</span>
+            <span>Holiday: {currentEmoji}</span>
         </div>
     );
 }
