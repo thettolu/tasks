@@ -42,7 +42,6 @@ export function ColoredBox(): JSX.Element {
                     <ChangeColor></ChangeColor>
                     <ColorPreview></ColorPreview>
                 </div> */}
-
             </div>
         </div>
     );
