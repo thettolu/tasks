@@ -244,17 +244,17 @@ export function editOption(
 ): Question[] {
     const newQuests = { ...questions };
     const nextQuest = newQuests.map(
-        (newQuests: Question): Question =>
-            newQuests.id === targetId
-                ? {
-                      ...newQuests,
-                      options:
-                          targetId === -1
-                              ? [...newQuests.options, newOption]
-                              : [...newQuests.options]
-                  }
-                : newQuests
+        (newQuests: Question): Question => ({
+            ...newQuests,
+            options:
+                newQuests.id === targetId
+                    ? targetId === -1
+                        ? [...newQuests.options, newOption]
+                        : [...newQuests.options]
+                    : newQuests.options
+        })
     );
+
     if (targetOptionIndex !== -1) {
         nextQuest[targetId].options.splice(targetOptionIndex, 1, newOption);
     }
