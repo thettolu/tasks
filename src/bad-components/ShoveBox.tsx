@@ -95,7 +95,6 @@ export function ShoveBox(): JSX.Element {
                     Shaove the Box
                 </Button>
                 {/* {box} */}
-
             </div>
         </div>
     );
